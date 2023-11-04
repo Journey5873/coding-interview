@@ -14,7 +14,6 @@ for _ in range(n):
         operations.append("+")
         curr = i + 1
 
-    
     if stack and stack[-1] == number:
         stack.pop()
         operations.append("-")
