@@ -1,16 +1,16 @@
-roomNumber = int(input())
-numberArr = [0] * 10
+import sys
 
-while roomNumber:
-    numberArr[roomNumber%10] += 1
-    roomNumber = roomNumber // 10
+room_number = int(sys.stdin.readline())
+digit_count = [0] * 10
+max_count = 0
 
-numberCount = 0
-for i in range(len(numberArr)):
+while room_number:
+    digit_count[room_number%10] += 1
+    room_number = room_number // 10
+
+for i in range(digit_count):
     if i == 6 or i == 9:
         continue
-    else:
-        numberCount = max(numberCount, numberArr[i])
+    max_count = max(max_count, digit_count[i])
 
-numberCount = max(numberCount, (numberArr[6] + numberArr[9] + 1) // 2)
-print(numberCount)
+max_count = max((digit_count[6]+digit_count[9]+1)//2, max_count)
