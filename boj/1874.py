@@ -1,28 +1,28 @@
 import sys
 
 n = int(sys.stdin.readline())
-operations = []
+operators = []
 stack = []
 
-curr = 1
-isPossible = True
+last_num = 1
+is_possible = True
 for _ in range(n):
-    number = int(sys.stdin.readline())
+    intput_num = int(sys.stdin.readline())
 
-    for i in range(curr, number + 1):
+    for i in range(last_num, intput_num+1):
+        operators.append("+")
         stack.append(i)
-        operations.append("+")
-        curr = i + 1
+        last_num += 1
 
-    if stack and stack[-1] == number:
+    if (stack[-1] == intput_num):
+        operators.append("-")
         stack.pop()
-        operations.append("-")
     else:
-        isPossible = False
+        is_possible = False
         break
-
-if isPossible:
-    for operation in operations:
-        print(operation)
+    
+if is_possible:
+    for operator in operators:
+        print(operator)
 else:
     print("NO")
