@@ -1,12 +1,12 @@
 n = int(input())
-numsArr = list(map(int, input().split()))
+numbers = list(map(int, input().split()))
 target = int(input())
 
-cnt = 0
-dic = {}
-for num in numsArr:
+count = 0
+visited = {}
+for num in numbers:
     diff = target - num
-    if diff in dic:
-        cnt += 1
-    dic[num] = True
-print(cnt)
+    if diff in visited:
+        count += 1
+    visited[num] = True
+print(count)
