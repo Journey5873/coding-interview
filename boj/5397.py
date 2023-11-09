@@ -1,47 +1,49 @@
+import sys
+
 class ListNode(object):
     def __init__(self, val=0, prev=None, next=None):
         self.val = val
         self.prev = prev
         self.next = next
 
-n = int(input())
+n = int(sys.stdin.readline())
 
 for _ in range(n):
-    pwdList = ListNode()
-    head = pwdList
     pwd = list(input())
+    pwd_list = ListNode()
+    dummy_head = pwd_list
 
     for char in pwd:
         if char == "<":
-            if pwdList.prev:
-                pwdList = pwdList.prev
+            if pwd_list.prev:
+                pwd_list = pwd_list.prev
         elif char == ">":
-            if pwdList.next:
-                pwdList = pwdList.next
+            if pwd_list.next:
+                pwd_list = pwd_list.next
         elif char == "-":
-            if pwdList.prev:
-                prevNode = pwdList.prev
-                nextNode = pwdList.next
+            if pwd_list.prev:
+                prev_node = pwd_list.prev
+                next_node = pwd_list.next
 
-                prevNode.next = nextNode
-                if nextNode:
-                    nextNode.prev = prevNode
-                pwdList = prevNode
+                prev_node.next = next_node
+                if next_node:
+                    next_node.prev = prev_node
+                pwd_list = prev_node
         else:
-            newNode = ListNode(char)
-            nextNode = pwdList.next
+            new_node = ListNode(char)
+            next_node = pwd_list.next
 
-            # If there is a nextNode
-            if nextNode:
-                nextNode.prev = newNode
-            newNode.next = nextNode
+            new_node.next = next_node
+            new_node.prev = pwd_list
+            if next_node:
+                next_node.prev = new_node
 
-            pwdList.next = newNode
-            newNode.prev = pwdList
-            pwdList = newNode
-        
-    current = head.next
+            pwd_list.next = new_node
+            pwd_list = new_node
+
+    current = dummy_head.next
     while current:
         print(current.val, end="")
         current = current.next
     print()
+
