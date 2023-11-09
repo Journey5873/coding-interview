@@ -1,15 +1,14 @@
 import sys
 
-stack = []
 n = int(sys.stdin.readline())
+moneys = []
 
 for _ in range(n):
     money = int(sys.stdin.readline())
-    if money == 0:
-        if stack:
-            stack.pop()
+    if money == 0 and moneys:
+        moneys.pop()
     else:
-        stack.append(money)
+        moneys.append(money)
 
-total = sum(stack)
+total = sum(moneys)
 print(total)
