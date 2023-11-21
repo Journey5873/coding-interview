@@ -1,5 +1,3 @@
-import sys
-
 while True:
     sentence = input()
     stack = []
@@ -12,17 +10,16 @@ while True:
         if char == "(" or char == "[":
             stack.append(char)
         elif char == ")":
-            if len(stack) > 0 and stack[-1] == "(":
-                stack.pop()
-            else:
+            if not stack or stack[-1] != "(":
                 is_balanced = False
                 break
+            stack.pop()    
         elif char == "]":
-            if len(stack) > 0 and stack[-1] == "[":
-                stack.pop()
-            else:
+            if not stack or stack[-1] != "[":
                 is_balanced = False
-                break        
+                break
+            stack.pop()
+                  
     if stack:
         is_balanced = False
 
@@ -30,5 +27,3 @@ while True:
         print("yes")
     else:
         print("no")
-
-
