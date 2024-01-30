@@ -1,26 +1,19 @@
 import sys
+input = sys.stdin.readline 
+test_case = int(input())
 stack = []
 
-n = int(sys.stdin.readline())
-for _ in range(n):
-    command = sys.stdin.readline().split()
+for _ in range(test_case):
+    command = input().split()
+    stack_cmd = command[0]
 
-    if command[0] == "push":
+    if stack_cmd == "push":
         stack.append(int(command[1]))
-    elif command[0] == "pop":
-        if stack:
-            print(stack.pop())
-        else:
-            print(-1)
-    elif command[0] == "size":
+    elif stack_cmd == "pop":
+        print(-1) if not stack else print(stack.pop())
+    elif stack_cmd == "size":
         print(len(stack))
-    elif command[0] == "empty":
-        if stack:
-            print(0)
-        else:
-            print(1)
+    elif stack_cmd == "empty":
+        print(1) if not stack else print(0)
     else:
-        if stack:
-            print(stack[-1])
-        else:
-            print(-1)
+        print("-1") if not stack else print(stack[-1])
