@@ -3,10 +3,10 @@ B = int(input())
 C = int(input())
 
 product = A * B * C
-numsArr = [0] * 10
-while product:
-    numsArr[product%10] += 1
-    product = product // 10
+num_arr = [0] * 10
 
-for i in range(len(numsArr)):
-    print(numsArr[i])
+for digit in str(product):
+    num_arr[int(digit)] += 1
+
+for count in num_arr:
+    print(count)
