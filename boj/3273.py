@@ -1,14 +1,13 @@
-from collections import defaultdict
-
-n = int(input())
-numbers = list(map(int, input().split()))
+N = int(input())
+input_arr = list(map(int, input().split()))
 target = int(input())
-visited = defaultdict(bool)
+visited = {}
 count = 0
 
-for num in numbers:
-    diff = target - num
-    count += visited[diff]
-    visited[num] = True
-    
+for i in range(N):
+    diff = target - input_arr[i]
+    if diff in visited:
+        count += 1
+    visited[input_arr[i]] = True
+
 print(count)
