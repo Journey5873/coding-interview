@@ -1,28 +1,26 @@
-import sys
-
-n = int(sys.stdin.readline())
-operators = []
+N = int(input())
+input_arr = [int(input()) for _ in range(N)]
+output_arr = []
 stack = []
-
-last_num = 1
 is_possible = True
-for _ in range(n):
-    intput_num = int(sys.stdin.readline())
+last_number = 0
 
-    for i in range(last_num, intput_num+1):
-        operators.append("+")
-        stack.append(i)
-        last_num += 1
+for number in input_arr:
+    
+    while last_number < number:
+        last_number += 1
+        stack.append(last_number)
+        output_arr.append("+")
 
-    if (stack[-1] == intput_num):
-        operators.append("-")
+    if stack[-1] == number:
         stack.pop()
+        output_arr.append("-")
     else:
         is_possible = False
         break
-    
+
 if is_possible:
-    for operator in operators:
-        print(operator)
+    for element in output_arr:
+        print(element)
 else:
     print("NO")
