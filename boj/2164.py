@@ -1,7 +1,6 @@
 from collections import deque
-import sys
 
-N = int(sys.stdin.readline())
+N = int(input())
 queue = deque(range(1, N + 1))
 
 for i in range(N - 1):
