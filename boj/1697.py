@@ -1,24 +1,24 @@
 from collections import deque
 
 N, K = map(int, input().split())
-visited = [0 for _ in range(100001)]
+queue = deque()
+dist = [-1] * 100001
 
 def bfs(x):
-    queue = deque()
+    dist[x] = 0
     queue.append(x)
-
     while queue:
-       x = queue.popleft()
+        x = queue.popleft()
 
-       if x == K:
-           return visited[x]
+        if x == K:
+            return dist[x]
+        
+        for i in (x - 1, x + 1, x * 2):
 
-       for temp in (x-1, x+1, x*2):
-           
-           if temp < 0 or temp > 100000:
-               continue
-           if visited[temp] == 0:
-               visited[temp] = visited[x] + 1
-               queue.append(temp)
-               
+            if i < 0 or i > 100000: continue
+
+            if dist[i] == -1:
+                dist[i] = dist[x] + 1
+                queue.append(i)
+
 print(bfs(N))
