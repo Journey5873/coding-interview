@@ -1,48 +1,39 @@
 from collections import deque
-import sys
 
-rows, cols = map(int, input().split())
-drawing_paper = []
-widest_area = 0
-total_cnt = 0
-
-for r in range(rows):
-    drawing_paper.append(list(map(int, input().split())))
+N, M = map(int, input().split())
+input_arr = [list(map(int, input().split())) for _ in range(N)]
+max_area = 0
+total = 0
 
 dx = [1, 0, -1, 0]
 dy = [0, 1, 0, -1]
 
-def bfs(r, c):
-    queue = deque()
-    queue.append((r, c))
+def bfs(x, y):
 
-    drawing_paper[r][c] = 0
-    area = 1 
+    queue = deque()
+    input_arr[x][y] = 0
+    queue.append((x, y))
+    area = 1
 
     while queue:
         x, y = queue.popleft()
-
         for i in range(4):
-            nx = dx[i] + x
-            ny = dy[i] + y
+            nx = x + dx[i]
+            ny = y + dy[i]
 
-            if nx < 0 or nx >= rows or ny < 0 or ny >= cols:
-                continue
+            if nx < 0 or nx >= N or ny < 0 or ny >= M: continue
 
-            if drawing_paper[nx][ny] == 1:
-                drawing_paper[nx][ny] = 0
+            if input_arr[nx][ny] == 1:
+                input_arr[nx][ny] = 0
                 queue.append((nx, ny))
                 area += 1
-
     return area
 
-for r in range(rows):
-    for c in range(cols):
-        if drawing_paper[r][c] == 1:
-            area = bfs(r, c)
-            widest_area = max(area, widest_area)
-            total_cnt += 1
+for r in range(N):
+    for c in range(M):
+        if input_arr[r][c] == 1:
+            total += 1
+            max_area = max(bfs(r, c), max_area)
 
-print(total_cnt)    
-print(widest_area)
-
+print(total)
+print(max_area)
