@@ -1,65 +1,67 @@
 from collections import deque
 
 N = int(input())
-picture = [list(input().strip()) for _ in range(N)]
-visited = [[0] * N for _ in range(N)]
-cb_visted = [[0] * N for _ in range(N)]
-cnt = 0
-cb_cnt = 0
+input_arr = [list(input()) for _ in range(N)]
+
+visited1 = [[-1] * N for _ in range(N)]
+visited2 = [[-1] * N for _ in range(N)]
+
+result1 = result2 = 0
 
 dx = [1, 0, -1, 0]
 dy = [0, 1, 0, -1]
 
-def bfs(r, c, color):
+def bfs1(x, y, color):
     queue = deque()
-    queue.append((r, c))
+    visited1[x][y] = 1
+    queue.append((x, y))
 
     while queue:
         x, y = queue.popleft()
-
         for i in range(4):
             nx = x + dx[i]
             ny = y + dy[i]
 
-            if nx < 0 or nx >= N or ny < 0 or ny >= N:
-                continue
+            if nx < 0 or nx >= N or ny < 0 or ny >= N: continue
 
-            if picture[nx][ny] == color and visited[nx][ny] == 0:
-                visited[nx][ny] = 1
+            if input_arr[nx][ny] == color and visited1[nx][ny] == -1:
+                visited1[nx][ny] = 1
                 queue.append((nx, ny))
 
-def cb_bfs(r, c, color):
+def bfs2(x, y, color):
+    is_RG = True
+    if color == "B":
+        is_RG = False
+    
     queue = deque()
-    queue.append((r, c))
+    visited2[x][y] = 1
+    queue.append((x, y))
 
     while queue:
         x, y = queue.popleft()
-
         for i in range(4):
             nx = x + dx[i]
             ny = y + dy[i]
 
-            if nx < 0 or nx >= N or ny < 0 or ny >= N:
-                continue
+            if nx < 0 or nx >= N or ny < 0 or ny >= N: continue
 
-            if color == "B" and picture[nx][ny] == color and cb_visted[nx][ny] == 0:
-                cb_visted[nx][ny] = 1
-                queue.append((nx, ny))
-            elif color != "B" and picture[nx][ny] != "B" and cb_visted[nx][ny] == 0:
-                cb_visted[nx][ny] = 1
-                queue.append((nx, ny))
+            if is_RG:
+                if (input_arr[nx][ny] == "R" or input_arr[nx][ny] == "G") and visited2[nx][ny] == -1:
+                    visited2[nx][ny] = 1
+                    queue.append((nx, ny))
+            else:
+                if input_arr[nx][ny] == color and visited2[nx][ny] == -1:
+                    visited2[nx][ny] = 1
+                    queue.append((nx, ny))
 
 
-for i in range(N):
-    for j in range(N):
-        
-        if visited[i][j] == 0:
-            bfs(i, j, picture[i][j])
-            cnt += 1
+for r in range(N):
+    for c in range(N):
+        if visited1[r][c] == -1:
+            bfs1(r, c, input_arr[r][c])
+            result1 += 1
+        if visited2[r][c] == -1:
+            bfs2(r, c, input_arr[r][c])
+            result2 += 1
 
-        if cb_visted[i][j] == 0:
-            cb_bfs(i, j, picture[i][j])
-            cb_cnt += 1
-
-print(cnt)
-print(cb_cnt)
+print(result1, result2)
