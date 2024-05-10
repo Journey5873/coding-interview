@@ -1,47 +1,42 @@
 from collections import deque
-import sys
 
-input = sys.stdin.readline
-field = []
+T = int(input())
 
 dx = [1, 0, -1, 0]
 dy = [0, 1, 0, -1]
 
-T = int(input())
+def bfs(x, y):
 
-def plant_cabbage(k):
-
-    for _ in range(k):
-        x, y = map(int, input().split())
-        field[x][y] = 1
-
-def bfs():
+    queue = deque()
+    input_arr[x][y] = 0
+    queue.append((x, y))
 
     while queue:
         x, y = queue.popleft()
-
         for i in range(4):
-            nx, ny = dx[i] + x, dy[i] + y
+            nx = x + dx[i]
+            ny = y + dy[i]
 
-            if 0 <= nx < M and 0 <= ny < N and field[nx][ny] == 1:
-                field[nx][ny] = 0
+            if nx < 0 or nx >= M or ny < 0 or ny >= N: continue
+
+            if input_arr[nx][ny] == 1:
+                input_arr[nx][ny] = 0
                 queue.append((nx, ny))
 
 
 for _ in range(T):
-
     M, N, K = map(int, input().split())
-    queue = deque()
-    count = 0
+    input_arr = [[0] * N for _ in range(M)]
+    total = 0
 
-    field = [[0] * N for _ in range(M)]
-    plant_cabbage(K)
+    for _ in range(K):
+        r, c = map(int, input().split())
+        input_arr[r][c] = 1
 
-    for i in range(M):
-        for j in range(N):
-            if field[i][j] == 1:
-                field[i][j] = 0
-                queue.append((i, j))
-                bfs()
-                count += 1
-    print(count)
+    for r in range(M):
+        for c in range(N):
+            if input_arr[r][c] == 1:
+                total += 1
+                bfs(r, c)
+
+    print(total)
