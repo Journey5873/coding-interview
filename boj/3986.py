@@ -1,22 +1,16 @@
-import sys
+N = int(input())
 
-n = int(sys.stdin.readline())
-
-words = [sys.stdin.readline().strip() for i in range(n)]
 count = 0
-
-for i in range(n):
-    word = words[i]
+for _ in range(N):
+    word = input()
     stack = []
-    is_good_word = True
 
-    for char in word:
-        if not stack or stack[-1] != char:
-            stack.append(char)
-        elif stack and stack[-1] == char:
+    for letter in word:
+        if stack and stack[-1] == letter:
             stack.pop()
+        else:
+            stack.append(letter)
     
     if not stack:
         count += 1
-
 print(count)
