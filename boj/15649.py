@@ -12,10 +12,9 @@ def solution(k):
     
     for i in range(1, N+1):
         if not isused[i]:
-            isused[i] = True
             arr[k] = i
+            isused[i] = True
             solution(k+1)
             isused[i] = False
-    return
 
 solution(0)
