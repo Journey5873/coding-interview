@@ -18,8 +18,8 @@ def solution(k, broken_egg):
     
     temp = broken_egg
     for i in range(N):
-        
-        if k == i or eggs[i][0] <= 0:
+
+        if eggs[i][0] <= 0 or i == k:
             continue
 
         eggs[k][0] -= eggs[i][1]
@@ -34,10 +34,9 @@ def solution(k, broken_egg):
 
         eggs[k][0] += eggs[i][1]
         eggs[i][0] += eggs[k][1]
-
         broken_egg = temp
 
-    return max_egg
+    return
 
 solution(0, 0)
 print(max_egg)
