@@ -1,17 +1,21 @@
-input_string = input()
-stack = []
+import sys
+input = sys.stdin.readline
 
-laser = 0
-result = 0
-for i in range(len(input_string)):
-    if input_string[i] == "(":
-        stack.append("(")
-    else:
-        if input_string[i - 1] == "(":
+arr = input().strip()
+
+def solution():
+    stack = []
+    result = 0
+
+    for i in range(len(arr)):
+        if arr[i] == "(":
+            stack.append("(")
+        elif arr[i] == ")" and arr[i-1] == "(":
             stack.pop()
             result += len(stack)
-        else:
+        elif arr[i] == ")" and arr[i-1] == ")":
             stack.pop()
             result += 1
+    return result
 
-print(result)
+print(solution())
